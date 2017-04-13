@@ -8,7 +8,11 @@ const server = net.createServer((c) => {
   clients.push(c);
   server.userName = '{ADMIN}';
   c.on('data', ( data ) => {
-  console.log(server.userName);
+  process.stdin.on('data', ( data ) => {
+    for(var i = 0; i< clients.length; i++){
+      clients[i].write(server.userName + data);
+    }
+  });
   if(c.userName === undefined){
     if(checkForUN(data) !== true){
     c.write(server.userName + ' : Please select user name by typing UN: followed by your username');
