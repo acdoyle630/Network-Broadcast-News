@@ -60,11 +60,7 @@ const  assignUN = ( data ) => {
   user.shift();
   user.shift();
   let newUserName = user.join('');
-  /*for(var i = 0; i < clients.length; i++){
-    console.log('client i username' +clients[i].userName);
-    if(newUserName === clients[i].userName){
-      console.log('cannot');
-      } else*/{
+  {
       return newUserName;
     }
 
