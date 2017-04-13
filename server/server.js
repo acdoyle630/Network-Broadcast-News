@@ -6,11 +6,12 @@ let users = 1;
 
 const server = net.createServer((c) => {
   clients.push(c);
+  server.userName = '{ADMIN}';
   c.on('data', ( data ) => {
-  console.log(c.userName);
+  console.log(server.userName);
   if(c.userName === undefined){
     if(checkForUN(data) !== true){
-    c.write('Please select user name by typing UN: followed by your username');
+    c.write(server.userName + ' : Please select user name by typing UN: followed by your username');
    } else {
     c.userName = assignUN(data);
    }
@@ -18,7 +19,7 @@ const server = net.createServer((c) => {
     if(c.userName !== undefined){
       for(var i = 0; i < clients.length; i++){
         if(c.userName !== clients[i].userName){
-        clients[i].write(c.userName + ': ' + data);
+        clients[i].write('{' + c.userName + '}' + ': ' + data);
        } else {
         clients[i].write('Me: ' + data );
        }
@@ -29,20 +30,20 @@ const server = net.createServer((c) => {
 server.listen(6969, () => {
 });
 
-function checkForUN( data ){
+const  checkForUN = ( data ) => {
   let user = data.toString().split('');
     if( user[0] === 'U' && user[1]=== 'N' && user[2] === ':'){
       return true;
   }
-}
+};
 
-function assignUN( data ){
+const  assignUN = ( data ) => {
   let user = data.toString().split('');
   user.pop();
   user.shift();
   user.shift();
   user.shift();
   return user.join('');
-}
+};
 
 
