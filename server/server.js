@@ -25,6 +25,8 @@ const server = net.createServer((c) => {
    } else {
     if(userNameLegal(data) === true){
     c.userName = assignUN(data);
+     } else {
+      c.write(server.userName + ' : Username alreay in use');
      }
     }
   }
